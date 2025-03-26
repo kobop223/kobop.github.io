@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>学术成果展示</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* 基础样式 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background: #f8f9fa;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        /* 导航栏 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            padding: 1rem 3rem;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        .nav-links a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #3498db;
+        }
+
+        /* 大图横幅 */
+        .hero-banner {
+            height: 75vh;
+            background: linear-gradient(rgba(40, 60, 80, 0.7), rgba(40, 60, 80, 0.7)),
+                        url('https://images.unsplash.com/photo-1497864149936-d3163f0c029f') center/cover;
+            margin-top: 65px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero-text {
+            text-align: center;
+            color: white;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* 主要内容容器 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        /* 个人介绍模块 */
+        .profile-section {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 3rem;
+            margin: 4rem 0;
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        .photo-upload {
+            position: relative;
+            text-align: center;
+        }
+
+        #profile-photo {
+            width: 100%;
+            max-width: 350px;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .upload-btn {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(52, 152, 219, 0.9);
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .upload-btn:hover {
+            background: #2980b9;
+        }
+
+        /* 博客栏目 */
+        .blog-section {
+            margin: 5rem 0;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .blog-image {
+            height: 200px;
+            background: #eee;
+            overflow: hidden;
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+        }
+
+        /* 页脚 */
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 4rem 2rem;
+            margin-top: 5rem;
+        }
+
+        @media (max-width: 768px) {
+            .profile-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .navbar {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-graduation-cap"></i> 学术成就
+        </div>
+        <div class="nav-links">
+            <a href="#profile">个人简介</a>
+            <a href="#research">研究成果</a>
+            <a href="#blog">精选博客</a>
+            <a href="#contact">联系我</a>
+        </div>
+    </nav>
+
+    <!-- 横幅大图 -->
+    <section class="hero-banner">
+        <div class="hero-text">
+            <h1>探索知识的边界</h1>
+            <p>科技创新 · 学术实践 · 成长记录</p>
+        </div>
+    </section>
+
+    <!-- 主要内容 -->
+    <div class="container">
+        <!-- 个人介绍 -->
+        <section id="profile" class="profile-section">
+            <div class="photo-upload">
+                <img id="profile-photo" src="default-avatar.jpg" alt="个人照片">
+                <input type="file" id="upload-input" accept="image/*" hidden>
+                <button class="upload-btn" onclick="document.getElementById('upload-input').click()">
+                    <i class="fas fa-camera"></i> 上传照片
+                </button>
+            </div>
+            <div class="profile-info">
+                <h2 style="color: #2c3e50; margin-bottom: 1.5rem;">关于我</h2>
+                <p style="line-height: 1.8; color: #666;">
+                    我是张某某，某某高中高一学生，专注于人工智能与机器学习领域。
+                    已发表3篇学术论文，获得全国青少年科技创新大赛一等奖...
+                </p>
+                <div style="margin-top: 2rem;">
+                    <h3 style="color: #3498db;">研究领域</h3>
+                    <ul style="list-style: none; padding-left: 0;">
+                        <li style="margin: 1rem 0;">
+                            <i class="fas fa-robot" style="color: #3498db;"></i>
+                            深度学习与计算机视觉
+                        </li>
+                        <li style="margin: 1rem 0;">
+                            <i class="fas fa-code" style="color: #3498db;"></i>
+                            Python编程与算法开发
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 精选博客 -->
+        <section id="blog" class="blog-section">
+            <h2 style="color: #2c3e50; margin-bottom: 2rem;">精选博客</h2>
+            <div class="blog-grid">
+                <article class="blog-card">
+                    <div class="blog-image" style="background: url('blog1.jpg') center/cover;"></div>
+                    <div class="blog-content">
+                        <h3>机器学习入门指南</h3>
+                        <p style="color: #888; margin: 1rem 0;">2023年9月1日</p>
+                        <p style="color: #666;">从零开始学习机器学习的基础知识...</p>
+                    </div>
+                </article>
+                
+                <article class="blog-card">
+                    <div class="blog-image" style="background: url('blog2.jpg') center/cover;"></div>
+                    <div class="blog-content">
+                        <h3>Python高效编程</h3>
+                        <p style="color: #888; margin: 1rem 0;">2023年8月15日</p>
+                        <p style="color: #666;">分享提升代码质量的10个技巧...</p>
+                    </div>
+                </article>
+                
+                <article class="blog-card">
+                    <div class="blog-image" style="background: url('blog3.jpg') center/cover;"></div>
+                    <div class="blog-content">
+                        <h3>论文写作心得</h3>
+                        <p style="color: #888; margin: 1rem 0;">2023年7月20日</p>
+                        <p style="color: #666;">如何撰写高质量的学术论文...</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </div>
+
+    <!-- 页脚 -->
+    <footer>
+        <div style="text-align: center; padding: 2rem;">
+            <p style="margin: 1rem 0;">© 2023 张某某学术成果展示</p>
+            <div style="margin-top: 1.5rem;">
+                <a href="#" style="color: white; margin: 0 1rem;"><i class="fab fa-weixin"></i></a>
+                <a href="#" style="color: white; margin: 0 1rem;"><i class="fab fa-github"></i></a>
+                <a href="#" style="color: white; margin: 0 1rem;"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // 图片上传与本地存储
+        const uploadInput = document.getElementById('upload-input');
+        const profilePhoto = document.getElementById('profile-photo');
+
+        // 读取本地存储的照片
+        window.onload = function() {
+            const savedPhoto = localStorage.getItem('profilePhoto');
+            if(savedPhoto) {
+                profilePhoto.src = savedPhoto;
+            }
+        }
+
+        // 处理文件上传
+        uploadInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                // 显示预览
+                profilePhoto.src = e.target.result;
+                // 保存到本地存储
+                localStorage.setItem('profilePhoto', e.target.result);
+            }
+
+            if(file) {
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <!-- 保持原有head内容不变，添加新样式 -->
+    <style>
+        /* 新增样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 2000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 800px;
+            position: relative;
+        }
+
+        .close-btn {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 2rem;
+            cursor: pointer;
+        }
+
+        .upload-section {
+            margin: 3rem 0;
+            background: #f8f9fa;
+            padding: 2rem;
+            border-radius: 10px;
+        }
+
+        .upload-btn-group {
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- 修改导航栏 -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-graduation-cap"></i> 学术成就
+        </div>
+        <div class="nav-links">
+            <a href="#profile">个人简介</a>
+            <a href="#research">研究成果</a>
+            <a href="#projects">研究项目</a>  <!-- 新增 -->
+            <a href="#papers">学术论文</a>    <!-- 新增 -->
+            <a href="#blog">精选博客</a>
+            <a href="#contact">联系我</a>
+        </div>
+    </nav>
+
+    <!-- 在container内添加新内容 -->
+    <div class="container">
+        <!-- 新增研究项目部分 -->
+        <section id="projects" class="blog-section">
+            <h2 style="color: #2c3e50; margin-bottom: 2rem;">研究项目</h2>
+            <div class="blog-grid" id="projects-grid"></div>
+            <div class="upload-section">
+                <h3>上传新项目</h3>
+                <input type="file" id="project-upload" accept=".txt" hidden>
+                <div class="upload-btn-group">
+                    <button onclick="document.getElementById('project-upload').click()" class="upload-btn">
+                        <i class="fas fa-upload"></i> 上传项目文档
+                    </button>
+                    <p style="margin-top: 1rem; color: #666;">（请上传.txt格式的文本文件）</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 新增论文部分 -->
+        <section id="papers" class="blog-section">
+            <h2 style="color: #2c3e50; margin-bottom: 2rem;">学术论文</h2>
+            <div class="blog-grid" id="papers-grid"></div>
+            <div class="upload-section">
+                <h3>上传新论文</h3>
+                <input type="file" id="paper-upload" accept=".txt" hidden>
+                <div class="upload-btn-group">
+                    <button onclick="document.getElementById('paper-upload').click()" class="upload-btn">
+                        <i class="fas fa-upload"></i> 上传论文文档
+                    </button>
+                    <p style="margin-top: 1rem; color: #666;">（请上传.txt格式的文本文件）</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 新增模态框 -->
+        <div id="detail-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeModal()">&times;</span>
+                <h2 id="modal-title"></h2>
+                <p id="modal-date" style="color: #888;"></p>
+                <div id="modal-content" style="margin-top: 2rem;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 新增数据存储结构
+        let storage = {
+            projects: JSON.parse(localStorage.getItem('projects')) || [],
+            papers: JSON.parse(localStorage.getItem('papers')) || []
+        };
+
+        // 初始化页面时加载存储内容
+        window.addEventListener('DOMContentLoaded', () => {
+            loadProjects();
+            loadPapers();
+        });
+
+        // 项目上传处理
+        document.getElementById('project-upload').addEventListener('change', function(e) {
+            handleFileUpload(e.target.files[0], 'projects');
+        });
+
+        // 论文上传处理
+        document.getElementById('paper-upload').addEventListener('change', function(e) {
+            handleFileUpload(e.target.files[0], 'papers');
+        });
+
+        // 通用文件处理函数
+        function handleFileUpload(file, type) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const content = e.target.result;
+                const newItem = {
+                    id: Date.now(),
+                    title: file.name.replace('.txt', ''),
+                    date: new Date().toLocaleDateString(),
+                    content: content,
+                    brief: content.substring(0, 100) + '...' // 截取前100字作为简介
+                };
+                
+                storage[type].push(newItem);
+                localStorage.setItem(type, JSON.stringify(storage[type]));
+                type === 'projects' ? loadProjects() : loadPapers();
+            }
+            reader.readAsText(file);
+        }
+
+        // 加载项目卡片
+        function loadProjects() {
+            const grid = document.getElementById('projects-grid');
+            grid.innerHTML = storage.projects.map(item => `
+                <article class="blog-card" onclick="showDetail('projects', ${item.id})">
+                    <div class="blog-content">
+                        <h3>${item.title}</h3>
+                        <p style="color: #888; margin: 1rem 0;">${item.date}</p>
+                        <p style="color: #666;">${item.brief}</p>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        // 加载论文卡片
+        function loadPapers() {
+            const grid = document.getElementById('papers-grid');
+            grid.innerHTML = storage.papers.map(item => `
+                <article class="blog-card" onclick="showDetail('papers', ${item.id})">
+                    <div class="blog-content">
+                        <h3>${item.title}</h3>
+                        <p style="color: #888; margin: 1rem 0;">${item.date}</p>
+                        <p style="color: #666;">${item.brief}</p>
+                    </div>
+                </article>
+            `).join('');
+        }
+
+        // 显示详细信息
+        function showDetail(type, id) {
+            const item = storage[type].find(i => i.id === id);
+            document.getElementById('modal-title').textContent = item.title;
+            document.getElementById('modal-date').textContent = item.date;
+            document.getElementById('modal-content').innerHTML = item.content.replace(/\n/g, '<br>');
+            document.getElementById('detail-modal').style.display = 'block';
+        }
+
+        // 关闭模态框
+        function closeModal() {
+            document.getElementById('detail-modal').style.display = 'none';
+        }
+
+        // 点击模态框外部关闭
+        window.onclick = function(event) {
+            const modal = document.getElementById('detail-modal');
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
